@@ -1,15 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-import SwipeScreen from './screens/SwipeScreen'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import CardDeck from './screens/CardDeck'
 
 export default function App() {
+
   return (
-    <View style={styles.screen}>
-      {/* <Text style={styles.container}>Hello!!!</Text> */}
-      <SwipeScreen />
-      {/* <Text style={styles.container}>Test 123 123 123</Text> */}
-    </View>
+      <View style={styles.screen} >
+        <CardDeck />
+      </View>
+    
   );
 }
 
