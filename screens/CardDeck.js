@@ -17,9 +17,12 @@ import data from '../data'
 
 const CardDeck = (props) => {
     return (
-        <View>
-            <Card index={0}
-            />
+        <View >
+            <StatusBar hidden />
+
+            {/* <Card index={props.index}
+            /> */}
+            <Picture />
         </View>
     )
 }
@@ -27,13 +30,13 @@ const CardDeck = (props) => {
 // render the individual card
 const Card = (props) => {
     return (
-        <View>
-            <Text>test</Text>
-            <Picture
+        <View style={styles.card}>
+            {/* <Picture
             index={props.index}
-            />
-            <Misc 
-            index={props.index}/>
+            /> */}
+            {/* <Misc 
+            index={props.index}
+            /> */}
         </View>
     )
 }
@@ -44,8 +47,8 @@ const Picture = (props) => {
 
     return (
         <>
-        <Image source={{uri: pic}}
-         style={{width: 400, height: 400}} />
+        <Image source={{ uri: pic }}
+         style={styles.picture} />
         </>
         )
 }
@@ -66,6 +69,24 @@ const Misc = (props) => {
 
 }
 
+const styles = StyleSheet.create({
+    card: {
+        flex: 1,
+        backgroundColor: 'skyblue',
+        margin: 10,
+        marginTop: 100,
+        marginBottom: 100,
+        borderWidth: 1,
+        borderColor: 'lightgrey',
+        borderRadius: 8,
+        overflow: 'hidden',
+    },
+    picture: {
+        // flex: 1,
+        width: 300,
+        height: 300,
+    }
+  });
 
 
 export default CardDeck;
