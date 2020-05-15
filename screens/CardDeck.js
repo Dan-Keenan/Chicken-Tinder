@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, StatusBar, Dimensions, TouchableOpacity } from 'react-native';
 import data from '../data'
+import Card from '../components/Card';
+import Misc from '../components/Misc';
+import Picture from '../components/Picture';
 
 // import { Colors } from 'react-native/Libraries/NewAppScreen';
 // import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -16,57 +19,25 @@ import data from '../data'
 */
 
 const CardDeck = (props) => {
-    return (
-        <View >
-            <StatusBar hidden />
 
-            {/* <Card index={props.index}
-            /> */}
-            <Picture />
-        </View>
-    )
-}
-
-// render the individual card
-const Card = (props) => {
-    return (
-        <View style={styles.card}>
-            {/* <Picture
-            index={props.index}
-            /> */}
-            {/* <Misc 
-            index={props.index}
-            /> */}
-        </View>
-    )
-}
-
-// Image that represents the restaurant
-const Picture = (props) => {
-    const pic = data[props.index].image[0];
-
-    return (
-        <>
-        <Image source={{ uri: pic }}
-         style={styles.picture} />
-        </>
-        )
-}
-
-// Misc. details relating to the card
-const Misc = (props) => {
-    const cuisine = data[props.index].cuisine;
-    const id = data[props.index].id;
-    const name = data[props.index].name;
+    // creates instances of all cards in the deck
+    
+    const renderCards = (ele) => {
+        console.log(ele)
+        return <Card 
+        index={props.index}
+        />
+        
+    }
 
     return (
         <View>
-            <Text>Cuisine: {cuisine}</Text>
-            <Text>Id: {id}</Text>
-            <Text>name: {name}</Text>
+            <StatusBar hidden />
+
+            {data.map((ele) => renderCards(ele))}
+           
         </View>
     )
-
 }
 
 const styles = StyleSheet.create({

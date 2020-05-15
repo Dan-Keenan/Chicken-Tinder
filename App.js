@@ -5,11 +5,18 @@ import data from './data'
 
 export default function App() {
 
+  /*
+  - fix css
+    i.e. App should just be a rought container
+  */
+
   return (
     <>
       <View style={styles.card} >
-        {/* <CardDeck index={0}/> */}
-        <Image 
+        <CardDeck 
+        index={0}
+        />
+        {/* <Image 
         source={{uri: data[0].image[0]}}
         style={{flex:1}}
         />
@@ -17,12 +24,10 @@ export default function App() {
         <View style={{margin:20}}>
           <Text style={{fontSize:20}}>Nick's Pizza</Text>
           <Text style={{fontSize:15, color: 'gray'}}>Italian</Text>
-        </View>
+        </View> */}
 
       </View>
-      {/* <Text>hi</Text> */}
 
-      
     </>
     
   );
