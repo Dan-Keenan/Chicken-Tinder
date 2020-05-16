@@ -12,9 +12,9 @@ export default function App() {
 
   return (
     <>
+    {/* <TouchableOpacity onPress={()=>console.log('black')}> */}
       <View style={styles.card} >
         <CardDeck 
-        index={0}
         />
         {/* <Image 
         source={{uri: data[0].image[0]}}
@@ -27,7 +27,7 @@ export default function App() {
         </View> */}
 
       </View>
-
+      {/* </TouchableOpacity> */}
     </>
     
   );

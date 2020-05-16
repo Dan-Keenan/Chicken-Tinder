@@ -19,24 +19,36 @@ import Picture from '../components/Picture';
 */
 
 const CardDeck = (props) => {
+    const [index, setIndex] = React.useState(0);
 
-    // creates instances of all cards in the deck
-    
-    const renderCards = (ele) => {
-        console.log(ele)
-        return <Card 
-        index={props.index}
-        />
-        
+    // const handleIncIndex = () => setIndex(index + 1);
+
+    // creates instances of the cards in the deck
+    const renderCards = (res, resIdx) => {
+
+        // only renders the the current indexed card and the following two cards
+        if(resIdx >= index &&
+            resIdx <= index + 2) {
+                console.log(resIdx)
+                return (
+                    <View key={res.id}>
+                        <Card 
+                        index={index}
+                        />
+                    </View>
+                    )
+            }
     }
 
     return (
+
         <View>
             <StatusBar hidden />
 
-            {data.map((ele) => renderCards(ele))}
+            {data.map((res, resIdx) => renderCards(res, resIdx))}
            
         </View>
+
     )
 }
 
