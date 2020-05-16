@@ -11,6 +11,7 @@ const Card = (props) => {
 
     const handlePress = () => {
         console.log('handling press')
+        props.incIdx();
     }
 
     return (
@@ -18,8 +19,8 @@ const Card = (props) => {
             <View >
                 <Picture
                 index={props.index}
-                pic={picIndex}
-                onClick={handlePress}
+                picIdx={picIndex}
+                onPress={handlePress}
                 />
             </View>
             

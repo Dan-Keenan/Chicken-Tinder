@@ -21,7 +21,9 @@ import Picture from '../components/Picture';
 const CardDeck = (props) => {
     const [index, setIndex] = React.useState(0);
 
-    // const handleIncIndex = () => setIndex(index + 1);
+    const handleIncIndex = () => {
+        setIndex(index + 1);
+        console.log('index is now ' + index)}
 
     // creates instances of the cards in the deck
     const renderCards = (res, resIdx) => {
@@ -33,7 +35,8 @@ const CardDeck = (props) => {
                 return (
                     <View key={res.id}>
                         <Card 
-                        index={index}
+                        index={resIdx}
+                        incIdx={handleIncIndex}
                         />
                     </View>
                     )

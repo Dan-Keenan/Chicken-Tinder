@@ -4,10 +4,10 @@ import data from '../data'
 
 // Image that represents the restaurant
 const Picture = (props) => {
-    const pic = data[props.index].image[props.pic];
+    const pic = data[props.index].image[props.picIdx];
 
     return (
-        <TouchableOpacity onPress={props.handlePress}>
+        <TouchableOpacity onPress={props.onPress}>
             <Image source={{ uri: pic }}
             style={styles.picture} />
         </TouchableOpacity>

@@ -6,8 +6,14 @@ import data from './data'
 export default function App() {
 
   /*
+  TODO: 
   - fix css
-    i.e. App should just be a rought container
+    - App should just be a rough container (!)
+    - Stack cards on top of eachoether (!!!)
+
+  WHAT I FINISHED TODAY:
+    - implemented rendering of only 3 items per time
+    - implemented clicking => indexing the array of pictures
   */
 
   return (
