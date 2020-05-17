@@ -9,10 +9,9 @@ const Picture = (props) => {
     const pic = data[props.index].image[props.picIdx];
 
     return (
-        <TouchableOpacity onPress={props.onPress}>
             <Image source={{ uri: pic }}
             style={styles.picture} />
-        </TouchableOpacity>
+
         )
 }
 

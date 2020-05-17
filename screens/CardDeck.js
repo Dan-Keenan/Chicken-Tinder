@@ -40,6 +40,7 @@ const CardDeck = (props) => {
                         incIdx={handleIncIndex}
                         style={styles.individualCard}
                         />
+
                     </View>
                     )
             }

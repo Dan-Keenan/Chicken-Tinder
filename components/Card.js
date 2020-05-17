@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, StatusBar, Dimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import Picture from '../components/Picture';
 import Misc from '../components/Misc';
 
@@ -18,17 +18,39 @@ const Card = (props) => {
     // returns the picture and misc detail elements of the card
     return (
         <>
+        <TouchableOpacity onPress={handlePress}>
             <Picture
             index={props.index}
             picIdx={picIndex}
-            onPress={handlePress}
+            // onPress={handlePress}
             />
             
             <Misc 
             index={props.index}
             />
+
+            <View style={styles.infoButton}>
+                <Button
+                    title='i'
+                    color='white'
+                />
+            </View>
+            
+
+            
+        </TouchableOpacity>
+        
+       
         </>
     )
 }
+
+const styles = StyleSheet.create({
+    infoButton: {
+        position: 'absolute',
+        paddingTop: 420,
+        paddingLeft: 300,
+    }
+})
 
 export default Card;
