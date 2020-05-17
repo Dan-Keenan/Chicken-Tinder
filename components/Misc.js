@@ -9,13 +9,22 @@ const Misc = (props) => {
     const name = data[props.index].name;
 
     return (
-        <View>
-            <Text>Cuisine: {cuisine}</Text>
-            <Text>Id: {id}</Text>
-            <Text>name: {name}</Text>
+        <View style={styles.misc}>
+            <Text style={styles.text}>Cuisine: {cuisine}</Text>
+            <Text style={styles.text}>Id: {id}</Text>
+            <Text style={styles.text}>name: {name}</Text>
         </View>
     )
 
 }
+
+const styles = StyleSheet.create({
+    misc: {
+        position: 'absolute',
+    },
+    text: {
+        color: 'white',
+    }
+})
 
 export default Misc;

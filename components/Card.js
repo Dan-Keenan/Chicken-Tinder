@@ -9,27 +9,26 @@ const Card = (props) => {
     // hook that decides which picture in arr of picture should be displayed
     const [picIndex, setPicIndex] = React.useState(0);
 
+    // handles the user's tap
     const handlePress = () => {
         console.log('handling press')
         props.incIdx();
     }
 
+    // returns the picture and misc detail elements of the card
     return (
-        <View >
-            <View >
-                <Picture
-                index={props.index}
-                picIdx={picIndex}
-                onPress={handlePress}
-                />
-            </View>
+        <>
+            <Picture
+            index={props.index}
+            picIdx={picIndex}
+            onPress={handlePress}
+            />
             
             <Misc 
             index={props.index}
             />
-        </View>
+        </>
     )
 }
-
 
 export default Card;
