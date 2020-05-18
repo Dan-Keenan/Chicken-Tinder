@@ -10,6 +10,8 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.1.0",
     "@expo-google-fonts/jost": "^0.1.0",
+    "@mdi/js": "^5.2.45",
+    "@mdi/react": "^1.4.0",
     "expo": "~37.0.3",
     "expo-font": "~8.1.0",
     "react": "~16.9.0",

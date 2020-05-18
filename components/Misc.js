@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
     }, 
     resCuisine: {
         paddingTop: 400,
-        color: 'lightgray'
     }
     
 })

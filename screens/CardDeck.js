@@ -20,7 +20,8 @@ const CardDeck = (props) => {
     // increments index by one
     const handleIncIndex = () => {
         setIndex(index + 1);
-        console.log('index is now ' + index)}
+        console.log('index is now ' + index)
+    }
 
 
 
@@ -28,8 +29,7 @@ const CardDeck = (props) => {
     const renderCards = (res, resIdx) => {
 
         // only renders the the current indexed card and the following two cards
-        if(resIdx >= index &&
-            resIdx <= index + 2) {
+        if(resIdx >= index && resIdx <= index + 2) {
                 console.log(resIdx)
 
                 // returns an indexed  new card
@@ -39,8 +39,8 @@ const CardDeck = (props) => {
                         index={resIdx}
                         incIdx={handleIncIndex}
                         style={styles.individualCard}
+                        is={props.is}
                         />
-
                     </View>
                     )
             }
@@ -76,6 +76,17 @@ const styles = StyleSheet.create({
     // },
     individualCard : {
         position: 'absolute',
+    }, 
+    cardContain: {
+        flex: 1,
+        backgroundColor: 'skyblue',
+        margin: 10,
+        marginTop: 100,
+        marginBottom: 100,
+        borderWidth: 1,
+        borderColor: 'lightgrey',
+        borderRadius: 8,
+        overflow: 'hidden',
     }
   });
 
