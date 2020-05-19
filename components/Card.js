@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Button } from 'react-native';
 import Picture from '../components/Picture';
 import Misc from '../components/Misc';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 // render the individual card
 const Card = (props) => {
@@ -15,27 +16,18 @@ const Card = (props) => {
 
     // handles the user's tap
     const handlePress = () => {
-        console.log('handling press')
         props.incIdx();
     }
 
+    // handles the toggling of the information button
     const handleInfoToggle = () => {
-        // setInfoMode(!infoMode);
         console.log('changing infoMode to ' + infoMode);
-        props.is()
+        props.infostyle()
     }
 
-    // returns the picture and misc detail elements of the card
-    // if (infoMode) {
-    //     return <Button 
-    //     title='test'
-    //     onPress={handleInfoToggle}
-    //     />
-    // } else 
-    // {
         return (
             <>
-                <TouchableOpacity onPress={handlePress}>
+                <TouchableOpacity onPressIn={handlePress}>
                         <Picture
                         index={props.index}
                         picIdx={picIndex}
@@ -59,17 +51,18 @@ const Card = (props) => {
                     </View>
     
                 </TouchableOpacity>
+
                     
-                
             </>
         )
-    // }
+
+        
 }
 
 const styles = StyleSheet.create({
     infoButton: {
         position: 'absolute',
-        paddingTop: 410,
+        paddingTop: 510,
         paddingLeft: 300,
     }
 })

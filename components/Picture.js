@@ -11,15 +11,16 @@ const Picture = (props) => {
     return (
             <Image source={{ uri: pic }}
             style={styles.picture} />
-
         )
 }
 
 const styles = StyleSheet.create({
+
+    // TODO: fix width and height when dealing w/ diff device sizes
     picture: {
         // flex: 1,
-        width: 500,
-        height: 500,
+        width: 700,
+        height: 700,
         position: 'absolute'
     }
   });

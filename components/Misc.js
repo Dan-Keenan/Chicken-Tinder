@@ -41,7 +41,7 @@ const Misc = (props) => {
             <View style={styles.misc}>
                 <Text>{name}</Text>
                 <Text>{cuisine}</Text>
-                <Text>Id: {id}</Text>
+                {/* <Text>Id: {id}</Text> */}
             </View>
         )
     } else {
@@ -56,11 +56,12 @@ const Misc = (props) => {
 }
 
 const styles = StyleSheet.create({
+    // TODO: fix paddingTop of resName + resCuisine when dealing w/ diff device sizes
     misc: {
         position: 'absolute',
     },
     resName: {
-        paddingTop: 370,
+        paddingTop: 470,
         fontFamily: 'Jost_600SemiBold',
         // position: 'absolute'
     },
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
         position: 'absolute'
     }, 
     resCuisine: {
-        paddingTop: 400,
+        paddingTop: 500,
     }
     
 })
