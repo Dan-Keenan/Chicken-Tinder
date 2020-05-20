@@ -6,7 +6,7 @@ import data from '../data'
 const Picture = (props) => {
 
     // returns the picture based off the given index
-    const pic = data[props.index].image[props.picIdx];
+    const pic = data[props.cardIndex].image[props.picIdx];
 
     return (
             <Image source={{ uri: pic }}
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
     picture: {
         // flex: 1,
         width: 700,
-        height: 700,
-        position: 'absolute'
+        height: 720,
+        // position: 'absolute'
     }
   });
 

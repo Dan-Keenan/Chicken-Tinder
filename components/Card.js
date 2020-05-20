@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Button } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Animated, TouchableWithoutFeedback, Button } from 'react-native';
 import Picture from '../components/Picture';
 import Misc from '../components/Misc';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -16,7 +16,8 @@ const Card = (props) => {
 
     // handles the user's tap
     const handlePress = () => {
-        props.incIdx();
+        // props.incIdx();
+        console.log('pressed!')
     }
 
     // handles the toggling of the information button
@@ -26,19 +27,21 @@ const Card = (props) => {
     }
 
         return (
-            <>
-                <TouchableOpacity onPressIn={handlePress}>
+                <TouchableOpacity
+                activeOpacity={1}
+                onPressIn={handlePress}
+                >
                         <Picture
-                        index={props.index}
+                        cardIndex={props.cardIndex}
                         picIdx={picIndex}
                         // onPress={handlePress}
                         />
                         
                         <Misc 
-                        index={props.index}
+                        cardIndex={props.cardIndex}
                         />
-    
-                    <View style={styles.infoButton}>
+
+                    <Animated.View style={styles.infoButton}>
     
                         <MaterialCommunityIcons.Button
                         name='information'
@@ -48,15 +51,11 @@ const Card = (props) => {
                         onPress={handleInfoToggle}
                         />
     
-                    </View>
+                    </Animated.View>
     
-                </TouchableOpacity>
-
-                    
-            </>
+                </TouchableOpacity> 
         )
 
-        
 }
 
 const styles = StyleSheet.create({
