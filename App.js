@@ -4,11 +4,11 @@ import CardDeck from './screens/CardDeck'
 import Details from './components/Details'
 
 /*
-Future Ideas:
-------------
-  Copy tinder and prevent people from swiping too fast in order
-  to optimize or load stuff faster
-*/
+  Future Ideas:
+  ------------
+    Copy tinder and prevent people from swiping too fast in order
+    to optimize or load stuff faster
+  */
 
 /*  HOOKS:
     ------
@@ -46,9 +46,12 @@ export default function App() {
       contentContainerStyle={{flex:1}}
       scrollEnabled={!infoStyles}
       >
-        <Animated.View style={infoStyles ? (styles.cardContain) : (styles.nothing)} >
+        {/* <Animated.View style={infoStyles ? (styles.cardContain) : (styles.nothing)} >
+         */}
+         <Animated.View style={styles.cardContain}>
             <CardDeck 
-            infostyle={handleInfoStyle}
+            infoStyleHuh={infoStyles}
+            handleInfoStyle={handleInfoStyle}
             index={index}
             incIdx={handleIncIndex}
             />

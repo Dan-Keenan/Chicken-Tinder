@@ -23,7 +23,7 @@ const Card = (props) => {
     // handles the toggling of the information button
     const handleInfoToggle = () => {
         console.log('changing infoMode to ' + infoMode);
-        props.infostyle()
+        props.handleInfoStyle();
     }
 
         return (
