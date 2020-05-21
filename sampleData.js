@@ -6,7 +6,10 @@ export default [
                 "https://s3-media3.fl.yelpcdn.com/bphoto/G5wF6PmWMzkTNmwAbwM3Rw/o.jpg",
                 "https://s3-media3.fl.yelpcdn.com/bphoto/7Vz9_4p7rZlEsHcwq5URiQ/o.jpg"],
         "rating": 5,
-        "review_count": 98, "location": ["1636 South St", "Philadelphia, PA 19146"], "name": "Nori Sushi", "reviewtext": "Had a great time at Nori sushi. They have a beautiful and clean interior and are great for street/people watching with their large windows. \n\nThe avocado..."
+        "review_count": 98,
+        "location": ["1636 South St", "Philadelphia, PA 19146"],
+        "name": "Nori Sushi", 
+        "reviewtext": "Had a great time at Nori sushi. They have a beautiful and clean interior and are great for street/people watching with their large windows. \n\nThe avocado..."
     },
     {
         "price": "$$", "photos": ["https://s3-media3.fl.yelpcdn.com/bphoto/cuhkSeBpSfYgZpMY-LfQHg/o.jpg", "https://s3-media1.fl.yelpcdn.com/bphoto/-jmikLMrtJSCWqxwgNqlJw/o.jpg", "https://s3-media3.fl.yelpcdn.com/bphoto/_1fKRcBr04FnbLwUTt2sBw/o.jpg"], "rating": 5, "review_count": 147, "location": ["1711 South St", "Philadelphia, PA 19146"], "name": "Kei Sushi Restaurant", "reviewtext": "We were having an intense sushi craving tonight and my friend recommended her favorite neighborhood place - Kei Sushi. Checked out the menu online, it..."

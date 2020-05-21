@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
-import data from '../data'
+import data from '../sampleData'
 import {
     useFonts,
     Jost_100Thin,
@@ -34,6 +34,7 @@ const Misc = (props) => {
     const cuisine = data[props.cardIndex].cuisine;
     const id = data[props.cardIndex].id;
     const name = data[props.cardIndex].name;
+    const price = data[props.cardIndex].price;
 
     // if font isn't loaded, load it with default font 
     if (!fontsLoaded) {
@@ -48,8 +49,9 @@ const Misc = (props) => {
         return (
             <Animated.View style={styles.misc}>
                 <Text style={[styles.text, styles.resName,]}>{name}</Text>
-                <Text style={[styles.text, styles.resCuisine,]}>{cuisine}</Text>
-                {/* <Text style={styles.text}>{id}</Text> */}
+                {/* <Text style={[styles.text, styles.resCuisine,]}>{cuisine}</Text> */}
+                <Text style={[styles.text, styles.resCuisine,]}>Japanese</Text>
+                <Text style={[styles.text, styles.resPrice]}>{price}</Text>
             </Animated.View>
         )
     }
@@ -74,6 +76,11 @@ const styles = StyleSheet.create({
     }, 
     resCuisine: {
         paddingTop: 500,
+    },
+    resPrice : {
+        paddingTop: 545,
+        paddingLeft: 15,
+        fontSize: 18,
     }
     
 })

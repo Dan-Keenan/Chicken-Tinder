@@ -1,16 +1,34 @@
 import React, {useRef} from 'react';
 import { View, Text, Image, StyleSheet, Animated, PanResponder, StatusBar, Dimensions, } from 'react-native';
-import data from '../data';
+import data from '../sampleData';
 import Card from '../components/Card';
 
 // represents the swiping deck of cards
 const CardDeck = (props) => {
 
+    // hook that decides which picture in arr of picture should be displayed
+    const [picIndex, setPicIndex] = React.useState(0);
+
+    const [movingHuh, setMovingHuh] = React.useState(false);
+
     const { width, height } = Dimensions.get('window');
+
+     // handles the user's tap
+     const handlePress = () => {
+        console.log('handling')
+        setPicIndex(picIndex => picIndex + 1);
+        console.log('pressed!!!!!!!!')
+    }
+
+    const resetPicIdx = () => {
+        setPicIndex(0);
+        console.log('picidx reset')
+    }
 
     /*
         ---- A N I M A T I O N S -----
     */
+
     const pan = new Animated.ValueXY({x : 0, y : 0});
 
     // reset card everytime we increment the index
@@ -22,13 +40,19 @@ const CardDeck = (props) => {
     const panResponder = 
         PanResponder.create({
 
-        onMoveShouldSetPanResponder: (evt, gestureState) => props.infoStyleHuh,
-      
+        onMoveShouldSetPanResponder: (evt, gestureState) => {
+            if (Math.abs(gestureState.dx) <= 5 || Math.abs(gestureState.dy) <= 5) {
+                // console.log('press')
+            }
+            else if (props.infoStyleHuh) {
+                return true;
+            } 
+        },
         onPanResponderMove: (evt, gestureState) => {
             pan.setValue({x : gestureState.dx, y : gestureState.dy})
+            setMovingHuh(true)
         },
         onPanResponderRelease: (evt, gestureState) => {
-
             if (gestureState.dx > 120) {
                 Animated.spring(pan, {toValue : {x : gestureState.dx > 0 ? width + 300 : -width - 300, y : gestureState.dy}, duration : 400}).start(() => {
                     props.incIdx();
@@ -39,7 +63,8 @@ const CardDeck = (props) => {
                     props.incIdx();
                 })
                 console.log('swipe left')
-            } else {
+            }
+             else {
                 Animated.spring(pan, {toValue : {x : 0, y : 0}, friction : 4}).start()
             }
          }
@@ -102,7 +127,7 @@ const CardDeck = (props) => {
                     
                     // returns an indexed new card with animations and the yes/no text
                     return (
-                        <Animated.View key={res.id}
+                        <Animated.View key={res.photos[0]}
                         style={[
                             {transform: [{ translateX: pan.x }, { translateY: pan.y }]},
                             {...rotateAndTranslate},
@@ -117,10 +142,12 @@ const CardDeck = (props) => {
                                 <Text style={{color : 'red', fontSize : 30, fontWeight : '700'}}>NO</Text>
                             </Animated.View>
 
-                            <Card key={res.id}
+                            <Card key={res.photos[0]}
                                 cardIndex={resIdx}
                                 incIdx={props.incIdx}
                                 handleInfoStyle={props.handleInfoStyle}
+                                handlePress={handlePress}
+                                picIdx={picIndex}
                             />
                             
                         </Animated.View>
@@ -129,17 +156,18 @@ const CardDeck = (props) => {
                 
                 // background cards that blend in opacity
                 return (
-                    <Animated.View key={res.id}
+                    <Animated.View key={res.photos[0]}
                     style={[ {opacity : backCardOpacity},
                         {transform : [{scale : backCardScale}]},
                         styles.individualCard]}
                         {...panResponder.panHandlers}
                     >
 
-                        <Card key={res.id}
+                        <Card key={res.photos[0]}
                             cardIndex={resIdx}
                             incIdx={props.incIdx}
                             handleInfoStyle={props.handleInfoStyle}
+                            picIdx={picIndex}
                         />
 
                     </Animated.View>
@@ -171,13 +199,14 @@ const styles = StyleSheet.create({
         borderColor: 'lightgrey',
         borderRadius: 8,
         overflow: 'hidden',
+        zIndex: 1,
     }, likeDislikeTextContainer : {
         position : 'absolute',
         top : 30,
         zIndex : 2,
         borderWidth : 4, 
         paddingVertical : 5,
-        paddingHorizontal : 10
+        paddingHorizontal : 10,
     }, noStyles : {
         position: 'absolute',
     }

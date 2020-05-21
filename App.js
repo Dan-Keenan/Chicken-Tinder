@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Animated, View, ScrollView } from 'react-native';
+import { StyleSheet, Animated, View, ScrollView, FlatList } from 'react-native';
 import CardDeck from './screens/CardDeck'
 import Details from './components/Details'
 
@@ -40,34 +40,41 @@ export default function App() {
   }
 
   return (
-    <>
+  <View style={{flex: 1, flexDirection: 'column',}}>
+    <View style={{flex: 1,
+      // height: 1000
+      }}>
     
       <ScrollView
-      contentContainerStyle={{flex:1}}
+      contentContainerStyle={{
+        // flexGrow: 1,
+        // borderColor: 'green', borderWidth: 5,
+        height: 1000,
+      }}
       scrollEnabled={!infoStyles}
+      // this height will need to scale with amount of components 
+      height={1000}
       >
-        {/* <Animated.View style={infoStyles ? (styles.cardContain) : (styles.nothing)} >
-         */}
-         <Animated.View style={styles.cardContain}>
-            <CardDeck 
-            infoStyleHuh={infoStyles}
-            handleInfoStyle={handleInfoStyle}
-            index={index}
-            incIdx={handleIncIndex}
-            />
-        </Animated.View>
 
-        <Animated.View>
-            {!infoStyles && <Details
-            index={index}
-            />}
-            
-            {console.log('true index is ' + index)}
-        </Animated.View>
+        <View>
+          <View style={{flex: 1}}>
+              <CardDeck 
+              infoStyleHuh={infoStyles}
+              handleInfoStyle={handleInfoStyle}
+              index={index}
+              incIdx={handleIncIndex}
+              />
+          </View>
 
-
+          <View style={{flex: 1}}>
+              {!infoStyles && <Details
+              index={index}
+              />}
+          </View>
+        </View>
       </ScrollView>
-    </>
+    </View>
+  </View>
   );
 }
 

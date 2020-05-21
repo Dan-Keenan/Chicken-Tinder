@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Animated, TouchableWithoutFeedback, Button } from 'react-native';
+import { Text, View, StyleSheet, TouchableHighlight, Animated, TouchableWithoutFeedback, Button } from 'react-native';
 import Picture from '../components/Picture';
 import Misc from '../components/Misc';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,17 +8,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 // render the individual card
 const Card = (props) => {
 
-    // hook that decides which picture in arr of picture should be displayed
-    const [picIndex, setPicIndex] = React.useState(0);
 
     // hook that switches between information mode and swiping mode
     const [infoMode, setInfoMode] = React.useState(false); 
-
-    // handles the user's tap
-    const handlePress = () => {
-        // props.incIdx();
-        console.log('pressed!')
-    }
 
     // handles the toggling of the information button
     const handleInfoToggle = () => {
@@ -27,33 +19,39 @@ const Card = (props) => {
     }
 
         return (
-                <TouchableOpacity
-                activeOpacity={1}
-                onPressIn={handlePress}
+                <TouchableHighlight
+                // activeOpacity={1}
+                // onLongPress={props.handlePress}
+                // delayLongPress={1}
+                onPressIn={props.handlePress}
+                // onPress={() => console.log('hi')}
+                
                 >
-                        <Picture
-                        cardIndex={props.cardIndex}
-                        picIdx={picIndex}
-                        // onPress={handlePress}
-                        />
-                        
-                        <Misc 
-                        cardIndex={props.cardIndex}
-                        />
+                    <View>
+                            <Picture
+                            cardIndex={props.cardIndex}
+                            picIdx={props.picIdx}
+                            // handlePress={props.handlePress}
+                            />
+                            
+                            <Misc 
+                            cardIndex={props.cardIndex}
+                            />
 
-                    <Animated.View style={styles.infoButton}>
+                        <View style={styles.infoButton}>
+        
+                            <MaterialCommunityIcons.Button
+                            name='information'
+                            backgroundColor='transparent'
+                            underlayColor='transparent'
+                            size={25}
+                            onPress={handleInfoToggle}
+                            />
+        
+                        </View>
+                </View>
     
-                        <MaterialCommunityIcons.Button
-                        name='information'
-                        backgroundColor='transparent'
-                        underlayColor='transparent'
-                        size={25}
-                        onPress={handleInfoToggle}
-                        />
-    
-                    </Animated.View>
-    
-                </TouchableOpacity> 
+                </TouchableHighlight> 
         )
 
 }
