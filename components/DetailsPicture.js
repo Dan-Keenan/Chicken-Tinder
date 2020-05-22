@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, StatusBar, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import data from '../sampleData'
 
-// Clickable image that represents the restaurant
-const Picture = (props) => {
+const { width, height } = Dimensions.get('window');
+
+const DetailsPicture = (props) => {
 
     const photoSize = data[props.cardIndex].photos.length;
 
@@ -11,20 +12,25 @@ const Picture = (props) => {
     const pic = data[props.cardIndex].photos[props.picIdx % photoSize];
 
     return (
+        <TouchableOpacity onPressIn={props.handlePress} activeOpacity={1}
+        style={{zIndex: 6}}>
             <Image source={{ uri: pic }}
             style={styles.picture} />
+        </TouchableOpacity>
         )
 }
+
 
 const styles = StyleSheet.create({
 
     // TODO: fix width and height when dealing w/ diff device sizes
     picture: {
         // flex: 1,
-        width: 700,
-        height: 720,
-        // position: 'absolute'
+        width: width,
+        height: height / 2,
+        resizeMode: 'cover',
+        zIndex: 1,
     }
   });
 
-export default Picture;
+export default DetailsPicture;

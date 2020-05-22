@@ -6,24 +6,9 @@ import Card from '../components/Card';
 // represents the swiping deck of cards
 const CardDeck = (props) => {
 
-    // hook that decides which picture in arr of picture should be displayed
-    const [picIndex, setPicIndex] = React.useState(0);
-
     const [movingHuh, setMovingHuh] = React.useState(false);
 
     const { width, height } = Dimensions.get('window');
-
-     // handles the user's tap
-     const handlePress = () => {
-        console.log('handling')
-        setPicIndex(picIndex => picIndex + 1);
-        console.log('pressed!!!!!!!!')
-    }
-
-    const resetPicIdx = () => {
-        setPicIndex(0);
-        console.log('picidx reset')
-    }
 
     /*
         ---- A N I M A T I O N S -----
@@ -146,8 +131,8 @@ const CardDeck = (props) => {
                                 cardIndex={resIdx}
                                 incIdx={props.incIdx}
                                 handleInfoStyle={props.handleInfoStyle}
-                                handlePress={handlePress}
-                                picIdx={picIndex}
+                                handlePress={props.handlePress}
+                                picIdx={props.picIdx}
                             />
                             
                         </Animated.View>
@@ -167,7 +152,7 @@ const CardDeck = (props) => {
                             cardIndex={resIdx}
                             incIdx={props.incIdx}
                             handleInfoStyle={props.handleInfoStyle}
-                            picIdx={picIndex}
+                            picIdx={props.picIdx}
                         />
 
                     </Animated.View>
@@ -195,8 +180,8 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginBottom: 100,
         borderWidth: 1,
-        backgroundColor: 'skyblue',
-        borderColor: 'lightgrey',
+        backgroundColor: 'white',
+        borderColor: 'white',
         borderRadius: 8,
         overflow: 'hidden',
         zIndex: 1,

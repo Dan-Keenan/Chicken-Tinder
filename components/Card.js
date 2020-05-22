@@ -12,11 +12,7 @@ const Card = (props) => {
     // hook that switches between information mode and swiping mode
     const [infoMode, setInfoMode] = React.useState(false); 
 
-    // handles the toggling of the information button
-    const handleInfoToggle = () => {
-        console.log('changing infoMode to ' + infoMode);
-        props.handleInfoStyle();
-    }
+    
 
         return (
                 <TouchableHighlight
@@ -31,7 +27,6 @@ const Card = (props) => {
                             <Picture
                             cardIndex={props.cardIndex}
                             picIdx={props.picIdx}
-                            // handlePress={props.handlePress}
                             />
                             
                             <Misc 
@@ -45,7 +40,7 @@ const Card = (props) => {
                             backgroundColor='transparent'
                             underlayColor='transparent'
                             size={25}
-                            onPress={handleInfoToggle}
+                            onPress={props.handleInfoStyle}
                             />
         
                         </View>
@@ -59,8 +54,8 @@ const Card = (props) => {
 const styles = StyleSheet.create({
     infoButton: {
         position: 'absolute',
-        paddingTop: 510,
-        paddingLeft: 300,
+        marginTop: 510,
+        marginLeft: 300,
     }
 })
 

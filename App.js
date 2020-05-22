@@ -22,21 +22,35 @@ export default function App() {
 
   const [infoStyles, setInfoStyles] = React.useState(true);
 
+  // hook that decides which picture in arr of picture should be displayed
+  const [picIndex, setPicIndex] = React.useState(0);
+
   // # HOOK #
   // index represents the current card in the deck
   const [index, setIndex] = React.useState(0);
 
-    // useEffect(() => {
-    //   console.log('effect index ' + index)
-    // }, [index])
+  // reference to the main scroll view
+  const mainScroll = React.useRef();
+
 
   const handleInfoStyle = () => {
     setInfoStyles(!infoStyles)
+    if(!infoStyles) {
+      mainScroll.current.scrollTo({x: 0, y: 0})
+    } else {
+      mainScroll.current.scrollTo({x: 100, y: 100})
+    }
   }
 
   // increments index by one
   const handleIncIndex = () => {
     setIndex(index => index + 1);
+  }
+
+  // handles the user's tap
+  const handlePress = () => {
+    console.log('incrementing pics')
+    setPicIndex(picIndex => picIndex + 1);
   }
 
   return (
@@ -47,30 +61,39 @@ export default function App() {
     
       <ScrollView
       contentContainerStyle={{
-        // flexGrow: 1,
+        flexGrow: 1,
         // borderColor: 'green', borderWidth: 5,
         height: 1000,
       }}
       scrollEnabled={!infoStyles}
       // this height will need to scale with amount of components 
       height={1000}
+      ref={mainScroll}
+      showsVerticalScrollIndicator={false}
       >
 
         <View>
           <View style={{flex: 1}}>
-              <CardDeck 
+              {infoStyles && <CardDeck 
               infoStyleHuh={infoStyles}
               handleInfoStyle={handleInfoStyle}
               index={index}
               incIdx={handleIncIndex}
-              />
-          </View>
-
-          <View style={{flex: 1}}>
-              {!infoStyles && <Details
-              index={index}
+              handlePress={handlePress}
+              picIdx={picIndex}
               />}
           </View>
+          
+          <View 
+          style={{flex: 1}}>
+              {!infoStyles && <Details
+              index={index}
+              picIdx={picIndex}
+              handleInfoStyle={handleInfoStyle}
+              handlePress={handlePress}
+              />}
+          </View>
+
         </View>
       </ScrollView>
     </View>
