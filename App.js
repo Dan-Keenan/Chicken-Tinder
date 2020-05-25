@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Animated, View, ScrollView, FlatList } from 'react-native';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
+
 import CardDeck from './screens/CardDeck'
 import Details from './components/Details'
+import firebase from './firebase'
+
 
 /*
   Future Ideas:
@@ -10,28 +15,80 @@ import Details from './components/Details'
     to optimize or load stuff faster
   */
 
-/*  HOOKS:
-    ------
-    index - keep track of each card in the card deck
-    picIndex - keep track of each picture for each card
-    infoStyles - boolean hook that represents whether the information
-    mode styling needs to be rendered
-*/
-
 export default function App() {
 
+  // hook that flips whether information mode styles should be activated or not
   const [infoStyles, setInfoStyles] = React.useState(true);
 
   // hook that decides which picture in arr of picture should be displayed
   const [picIndex, setPicIndex] = React.useState(0);
 
-  // # HOOK #
   // index represents the current card in the deck
   const [index, setIndex] = React.useState(0);
+
+  // represents the restaurant data of the nearby restaurants
+  const [resData, setResData] = React.useState([]);
 
   // reference to the main scroll view
   const mainScroll = React.useRef();
 
+  /* 
+    TODO : 
+    - combine getLocation and postData into one useEffect [] hook.
+    - ask for coordinates before 
+    - fix i button cause there's an error with that
+  */
+
+  useEffect(() => getLocation, [])
+
+  useEffect(() => {
+    postData('https://us-central1-chicken-tinder-c7de2.cloudfunctions.net/yelp-scrape', { location: '40.65,-73.65' })
+    .then(data => {
+      console.log('data incoming:')
+      console.log(data); // JSON data parsed by `response.json()` call
+      setResData(data)
+    });
+  }, [])
+
+  // get user's location and send it to the 
+  const getLocation = async () => {
+    const { status } = await Permissions.askAsync(Permissions.LOCATION)
+  
+    if (status !== 'granted') {
+      console.log('PERMISSION NOT GRANTED FOR LOCATION')
+    } 
+
+    console.log('LOCATION GRANTED.')
+
+    const userLocation = await Location.getCurrentPositionAsync();
+    const { latitude, longitude } = userLocation.coords;
+    
+    firebase.firestore().collection('coords').add({
+      latitude: latitude,
+      longitude: longitude,
+    })
+    console.log(userLocation);
+
+  }
+  
+  // request data from google cloud platform
+  async function postData(url = '', data = {}) {
+    // Default options are marked with *
+    const response = await fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
 
   const handleInfoStyle = () => {
     setInfoStyles(!infoStyles)
@@ -81,6 +138,7 @@ export default function App() {
               incIdx={handleIncIndex}
               handlePress={handlePress}
               picIdx={picIndex}
+              data={resData}
               />}
           </View>
           
@@ -91,6 +149,7 @@ export default function App() {
               picIdx={picIndex}
               handleInfoStyle={handleInfoStyle}
               handlePress={handlePress}
+              data={resData}
               />}
           </View>
 

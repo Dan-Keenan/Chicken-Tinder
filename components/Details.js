@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View, TouchableHighlight } from 'react-native';
-import data from '../sampleData';
+// import data from '../sampleData';
 import DetailsPicture from './DetailsPicture'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -27,12 +27,12 @@ const Details = (props) => {
 
                 </View>
                 <View>
-                    <Text style={styles.details}>{data[props.index].name}</Text>
-                    <Text style={styles.stars}>{data[props.index].rating} Stars</Text>
-                    <Text style={styles.id}>{data[props.index].reviewtext}</Text>
-                    <Text style={styles.loc1}>{data[props.index].location[0]}</Text>
-                    <Text style={styles.loc2}>{data[props.index].location[1]}</Text>
-                    <Text style={styles.loc3}>{data[props.index].location[2]}</Text>
+                    <Text style={styles.details}>{props.data[props.index].name}</Text>
+                    <Text style={styles.stars}>{props.data[props.index].rating} Stars</Text>
+                    <Text style={styles.id}>{props.data[props.index].reviewtext}</Text>
+                    <Text style={styles.loc1}>{props.data[props.index].location[0]}</Text>
+                    <Text style={styles.loc2}>{props.data[props.index].location[1]}</Text>
+                    <Text style={styles.loc3}>{props.data[props.index].location[2]}</Text>
                 </View>
             </View>
         )

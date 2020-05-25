@@ -1,7 +1,17 @@
 import React, {useRef} from 'react';
 import { View, Text, Image, StyleSheet, Animated, PanResponder, StatusBar, Dimensions, } from 'react-native';
-import data from '../sampleData';
+
+
+// import data from '../sampleData';
 import Card from '../components/Card';
+import firebase from '../firebase'
+
+
+
+// firebase.firestore().collection('times').add({
+//     title: 'rubikssss cube',
+//     time_seconds: 45,
+// })
 
 // represents the swiping deck of cards
 const CardDeck = (props) => {
@@ -15,6 +25,8 @@ const CardDeck = (props) => {
     */
 
     const pan = new Animated.ValueXY({x : 0, y : 0});
+
+    const data = props.data;
 
     // reset card everytime we increment the index
     React.useEffect(() => {
@@ -133,6 +145,7 @@ const CardDeck = (props) => {
                                 handleInfoStyle={props.handleInfoStyle}
                                 handlePress={props.handlePress}
                                 picIdx={props.picIdx}
+                                data={props.data}
                             />
                             
                         </Animated.View>
@@ -153,6 +166,7 @@ const CardDeck = (props) => {
                             incIdx={props.incIdx}
                             handleInfoStyle={props.handleInfoStyle}
                             picIdx={props.picIdx}
+                            data={props.data}
                         />
 
                     </Animated.View>

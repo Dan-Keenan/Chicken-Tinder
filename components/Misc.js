@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
-import data from '../sampleData'
+// import data from '../sampleData'
 import {
     useFonts,
     Jost_100Thin,
@@ -31,10 +31,10 @@ const Misc = (props) => {
         Jost_300Light, Jost_600SemiBold,
     });
 
-    const cuisine = data[props.cardIndex].cuisine;
-    const id = data[props.cardIndex].id;
-    const name = data[props.cardIndex].name;
-    const price = data[props.cardIndex].price;
+    const cuisine = props.data[props.cardIndex].cuisine;
+    const id = props.data[props.cardIndex].id;
+    const name = props.data[props.cardIndex].name;
+    const price = props.data[props.cardIndex].price;
 
     // if font isn't loaded, load it with default font 
     if (!fontsLoaded) {

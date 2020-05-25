@@ -27,10 +27,12 @@ const Card = (props) => {
                             <Picture
                             cardIndex={props.cardIndex}
                             picIdx={props.picIdx}
+                            data={props.data}
                             />
                             
                             <Misc 
                             cardIndex={props.cardIndex}
+                            data={props.data}
                             />
 
                         <View style={styles.infoButton}>

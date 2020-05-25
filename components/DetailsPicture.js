@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import data from '../sampleData'
+// import data from '../sampleData'
 
 const { width, height } = Dimensions.get('window');
 
 const DetailsPicture = (props) => {
 
-    const photoSize = data[props.cardIndex].photos.length;
+    const photoSize = props.data[props.cardIndex].photos.length;
 
     // returns the picture based off the given index
-    const pic = data[props.cardIndex].photos[props.picIdx % photoSize];
+    const pic = props.data[props.cardIndex].photos[props.picIdx % photoSize];
 
     return (
         <TouchableOpacity onPressIn={props.handlePress} activeOpacity={1}
