@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Animated, View, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Button, View, ScrollView, FlatList } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import Alert from 'expo';
 
 import CardDeck from './screens/CardDeck'
 import Details from './components/Details'
@@ -39,37 +40,37 @@ export default function App() {
     - fix i button cause there's an error with that
   */
 
-  useEffect(() => getLocation, [])
+ useEffect(() => getLocation, [])
 
-  useEffect(() => {
-    postData('https://us-central1-chicken-tinder-c7de2.cloudfunctions.net/yelp-scrape', { location: '40.65,-73.65' })
-    .then(data => {
-      console.log('data incoming:')
-      console.log(data); // JSON data parsed by `response.json()` call
-      setResData(data)
-    });
-  }, [])
+ useEffect(() => {
+   postData('https://us-central1-chicken-tinder-c7de2.cloudfunctions.net/yelp-scrape', { location: '40.65,-73.65' })
+   .then(data => {
+     console.log('data incoming:')
+     console.log(data); // JSON data parsed by `response.json()` call
+     setResData(data)
+   });
+ }, [])
 
-  // get user's location and send it to the 
-  const getLocation = async () => {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION)
-  
-    if (status !== 'granted') {
-      console.log('PERMISSION NOT GRANTED FOR LOCATION')
-    } 
+ // get user's location and send it to the 
+ const getLocation = async () => {
+   const { status } = await Permissions.askAsync(Permissions.LOCATION)
+ 
+   if (status !== 'granted') {
+     console.log('PERMISSION NOT GRANTED FOR LOCATION')
+   } 
 
-    console.log('LOCATION GRANTED.')
+   console.log('LOCATION GRANTED.')
 
-    const userLocation = await Location.getCurrentPositionAsync();
-    const { latitude, longitude } = userLocation.coords;
-    
-    firebase.firestore().collection('coords').add({
-      latitude: latitude,
-      longitude: longitude,
-    })
-    console.log(userLocation);
+   const userLocation = await Location.getCurrentPositionAsync();
+   const { latitude, longitude } = userLocation.coords;
+   
+   firebase.firestore().collection('coords').add({
+     latitude: latitude,
+     longitude: longitude,
+   })
+   console.log(userLocation);
 
-  }
+ }
   
   // request data from google cloud platform
   async function postData(url = '', data = {}) {
@@ -112,6 +113,7 @@ export default function App() {
 
   return (
   <View style={{flex: 1, flexDirection: 'column',}}>
+    
     <View style={{flex: 1,
       // height: 1000
       }}>

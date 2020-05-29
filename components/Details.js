@@ -13,6 +13,7 @@ const Details = (props) => {
                     cardIndex={props.index}
                     picIdx={props.picIdx}
                     handlePress={props.handlePress}
+                    data={props.data}
                     />
     
                 <View style={styles.infoButton}>
