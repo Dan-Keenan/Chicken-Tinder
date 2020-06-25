@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
 import { StyleSheet, Button, View, ScrollView, FlatList } from 'react-native';
-import * as Permissions from 'expo-permissions';
-import * as Location from 'expo-location';
-import Alert from 'expo';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
-import CardDeck from './screens/CardDeck'
-import Details from './components/Details'
-import firebase from './firebase'
+
+import FrontPage from './screens/FrontPage'
+import Swiper from './screens/Swiper'
+
+
 
 
 /*
@@ -18,153 +18,14 @@ import firebase from './firebase'
 
 export default function App() {
 
-  // hook that flips whether information mode styles should be activated or not
-  const [infoStyles, setInfoStyles] = React.useState(true);
-
-  // hook that decides which picture in arr of picture should be displayed
-  const [picIndex, setPicIndex] = React.useState(0);
-
-  // index represents the current card in the deck
-  const [index, setIndex] = React.useState(0);
-
-  // represents the restaurant data of the nearby restaurants
-  const [resData, setResData] = React.useState([]);
-
-  // reference to the main scroll view
-  const mainScroll = React.useRef();
-
-  /* 
-    TODO : 
-    - combine getLocation and postData into one useEffect [] hook.
-    - ask for coordinates before 
-    - fix i button cause there's an error with that
-  */
-
-
-    console.log('asking for location')
-    useEffect(() => getLocation, [])
-
-    useEffect(() => {
-      postData('https://us-central1-chicken-tinder-c7de2.cloudfunctions.net/yelp-scrape', { location: '40.65,-73.65' })
-      .then(data => {
-        console.log('data incoming:')
-        console.log(data); // JSON data parsed by `response.json()` call
-        setResData(data)
-      });
-  }, [])
-
-  // get user's location and send it to the 
-  const getLocation = async () => {
-    console.log('awaiting')
-    const { status } = await Permissions.askAsync(Permissions.LOCATION)
-    console.log('finished waiting')
-    if (status !== 'granted') {
-      console.log('PERMISSION NOT GRANTED FOR LOCATION')
-    } 
-
-    console.log('LOCATION GRANTED.')
-
-    console.log('awaiting 2')
-    const userLocation = await Location.getCurrentPositionAsync();
-    console.log('worked')
-    const { latitude, longitude } = userLocation.coords;
-    
-    // add user's coordinates to firestore database
-    firebase.firestore().collection('coords').add({
-      latitude: latitude,
-      longitude: longitude,
-    })
-    console.log(userLocation);
-
-  }
-  
-  // request data from google cloud platform
-  async function postData(url = '', data = {}) {
-    // Default options are marked with *
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
-
-  const handleInfoStyle = () => {
-    setInfoStyles(!infoStyles)
-    if(!infoStyles) {
-      mainScroll.current.scrollTo({x: 0, y: 0})
-    } else {
-      mainScroll.current.scrollTo({x: 100, y: 100})
-    }
-  }
-
-  // increments index by one
-  const handleIncIndex = () => {
-    setIndex(index => index + 1);
-  }
-
-  // handles the user's tap
-  const handlePress = () => {
-    console.log('incrementing pics')
-    setPicIndex(picIndex => picIndex + 1);
-  }
-
+  const Stack = createStackNavigator(); 
   return (
-  <View style={{flex: 1, flexDirection: 'column',}}>
-    
-    <View style={{flex: 1,
-      // height: 1000
-      }}>
-    
-      <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1,
-        // borderColor: 'green', borderWidth: 5,
-        height: 1000,
-      }}
-      scrollEnabled={!infoStyles}
-      // this height will need to scale with amount of components 
-      height={1000}
-      ref={mainScroll}
-      showsVerticalScrollIndicator={false}
-      >
-
-        <View>
-          <View style={{flex: 1}}>
-              {infoStyles && <CardDeck 
-              infoStyleHuh={infoStyles}
-              handleInfoStyle={handleInfoStyle}
-              index={index}
-              incIdx={handleIncIndex}
-              handlePress={handlePress}
-              picIdx={picIndex}
-              data={resData}
-              />}
-          </View>
-          
-          <View 
-          style={{flex: 1}}>
-              {!infoStyles && <Details
-              index={index}
-              picIdx={picIndex}
-              handleInfoStyle={handleInfoStyle}
-              handlePress={handlePress}
-              data={resData}
-              />}
-          </View>
-
-        </View>
-      </ScrollView>
-    </View>
-  </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Front Page">
+        <Stack.Screen name="Front Page" component={FrontPage} />
+        <Stack.Screen name="Swiper" component={Swiper} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
