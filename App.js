@@ -40,37 +40,43 @@ export default function App() {
     - fix i button cause there's an error with that
   */
 
- useEffect(() => getLocation, [])
 
- useEffect(() => {
-   postData('https://us-central1-chicken-tinder-c7de2.cloudfunctions.net/yelp-scrape', { location: '40.65,-73.65' })
-   .then(data => {
-     console.log('data incoming:')
-     console.log(data); // JSON data parsed by `response.json()` call
-     setResData(data)
-   });
- }, [])
+    console.log('asking for location')
+    useEffect(() => getLocation, [])
 
- // get user's location and send it to the 
- const getLocation = async () => {
-   const { status } = await Permissions.askAsync(Permissions.LOCATION)
- 
-   if (status !== 'granted') {
-     console.log('PERMISSION NOT GRANTED FOR LOCATION')
-   } 
+    useEffect(() => {
+      postData('https://us-central1-chicken-tinder-c7de2.cloudfunctions.net/yelp-scrape', { location: '40.65,-73.65' })
+      .then(data => {
+        console.log('data incoming:')
+        console.log(data); // JSON data parsed by `response.json()` call
+        setResData(data)
+      });
+  }, [])
 
-   console.log('LOCATION GRANTED.')
+  // get user's location and send it to the 
+  const getLocation = async () => {
+    console.log('awaiting')
+    const { status } = await Permissions.askAsync(Permissions.LOCATION)
+    console.log('finished waiting')
+    if (status !== 'granted') {
+      console.log('PERMISSION NOT GRANTED FOR LOCATION')
+    } 
 
-   const userLocation = await Location.getCurrentPositionAsync();
-   const { latitude, longitude } = userLocation.coords;
-   
-   firebase.firestore().collection('coords').add({
-     latitude: latitude,
-     longitude: longitude,
-   })
-   console.log(userLocation);
+    console.log('LOCATION GRANTED.')
 
- }
+    console.log('awaiting 2')
+    const userLocation = await Location.getCurrentPositionAsync();
+    console.log('worked')
+    const { latitude, longitude } = userLocation.coords;
+    
+    // add user's coordinates to firestore database
+    firebase.firestore().collection('coords').add({
+      latitude: latitude,
+      longitude: longitude,
+    })
+    console.log(userLocation);
+
+  }
   
   // request data from google cloud platform
   async function postData(url = '', data = {}) {
