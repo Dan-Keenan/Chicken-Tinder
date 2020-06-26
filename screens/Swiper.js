@@ -16,7 +16,7 @@ import firebase from '../firebase'
     to optimize or load stuff faster
   */
 
-export default function App() {
+export default function Swiper() {
 
   // hook that flips whether information mode styles should be activated or not
   const [infoStyles, setInfoStyles] = React.useState(true);

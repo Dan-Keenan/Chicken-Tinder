@@ -13,3 +13,5 @@ const FrontPage = (props) => {
         </View>
     ); 
 }
+
+export default FrontPage; 

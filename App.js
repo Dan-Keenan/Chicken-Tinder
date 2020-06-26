@@ -1,3 +1,4 @@
+import React from 'react'; 
 import { StyleSheet, Button, View, ScrollView, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -19,6 +20,7 @@ import Swiper from './screens/Swiper'
 export default function App() {
 
   const Stack = createStackNavigator(); 
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Front Page">
