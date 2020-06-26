@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Front Page">
+      <Stack.Navigator initialRouteName="Front Page" headerMode={false}>
         <Stack.Screen name="Front Page" component={FrontPage} />
         <Stack.Screen name="Swiper" component={Swiper} />
       </Stack.Navigator>
