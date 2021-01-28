@@ -8,7 +8,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 const Details = (props) => {
         return (
             <View>
-               
                     <DetailsPicture
                     cardIndex={props.index}
                     picIdx={props.picIdx}

@@ -21,7 +21,6 @@ const Card = (props) => {
                 // delayLongPress={1}
                 onPressIn={props.handlePress}
                 // onPress={() => console.log('hi')}
-                
                 >
                     <View>
                             <Picture
