@@ -3,11 +3,12 @@ import { StyleSheet, Button, View, ScrollView, FlatList } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import Alert from 'expo';
+import { FIREBASE_API_KEY } from '@env'
 
 import CardDeck from './screens/CardDeck'
 import Details from './components/Details'
 import firebase from './firebase'
-
+import Navigator from './routes/homeStack'
 
 /*
   Future Ideas:
@@ -17,6 +18,8 @@ import firebase from './firebase'
   */
 
 export default function App() {
+
+  console.log(FIREBASE_API_KEY)
 
   // hook that flips whether information mode styles should be activated or not
   const [infoStyles, setInfoStyles] = React.useState(true);
