@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Button, View, ScrollView, FlatList } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
-import Alert from 'expo';
 import { FIREBASE_API_KEY } from '@env'
 
 import CardDeck from './screens/CardDeck'

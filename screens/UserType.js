@@ -1,27 +1,3 @@
-// import React from 'react'
-// import { View, Text, Button } from 'react-native';
-
-// const Home = (props) => {
-
-//     return (
-//         <View>
-//             <Text>Hello World</Text>
-// <Button title="Host Lobby"
-//             onPress={navigateChickenTinderApp}
-//             />
-//             <Button title="Join Lobby"
-//             onPress={navigateChickenTinderApp}
-//             />
-
-//             <Button title="Go To CT"
-//             onPress={navigateChickenTinderApp}
-//             />
-//         </View>
-//     )
-
-// }
-// export default Home;
-
 import React, { useEffect } from "react";
 import {
   Keyboard,
@@ -31,16 +7,46 @@ import {
   View,
   Text,
 } from "react-native";
+import firebase from '../firebase'
 
 const UserType = ({ navigation }) => {
 
-    const navigateLobby = (userTypeInfo) => {
+    // const [roomText, setRoomText] = React.useState("")
+    const [lobbyNumber, setLobbyNumber] = React.useState("")
+
+    const { name } = navigation.state.params;
+
+    const dbRef = firebase.firestore().collection('lobbies')
+
+    const navigateLobby = (userTypeInfo, lobbyNumber) => {
         navigation.navigate('Lobby', {
-          userType: userTypeInfo
+          userType: userTypeInfo,
+          lobbyNumber: lobbyNumber
         })
     }
 
-    const { name } = navigation.state.params;
+    const startNewLobby = () => {
+      const random = Math.floor(Math.random() * 10000).toString()
+
+      // make a new doc 
+      dbRef.doc(random).set({
+
+      })
+
+      return random
+    }
+
+    const addHostToLobby = (lobbyNumber, name) => {
+      dbRef.doc(lobbyNumber).update({
+        host: name
+      })
+    }
+
+    const addGuestToLobby = (lobbyNumber, name) => {
+      dbRef.doc(lobbyNumber).update({
+        guest: name
+      })
+    }
 
     
   return (
@@ -55,7 +61,13 @@ const UserType = ({ navigation }) => {
         onPress={
             () => {
                 console.log("navigating to lobby as host")
-                navigateLobby("host")
+                // generate random number, stored in backend
+                const lobbyNumber = startNewLobby()
+                setLobbyNumber(lobbyNumber)
+
+                addHostToLobby(lobbyNumber, name)
+                // place user in lobby
+                navigateLobby("host", lobbyNumber)
             }
         }
         />
@@ -68,11 +80,31 @@ const UserType = ({ navigation }) => {
           onSubmitEditing={
               () => {
                 Keyboard.dismiss
-                console.log("navigating to lobby as guest")
-                navigateLobby("guest")
+
+                console.log("LOBBY NUMBER", lobbyNumber)
+                try {
+                  dbRef.doc(lobbyNumber).get()
+                  .then((docSnapshot) => {
+                    if (docSnapshot.exists) {
+                      addGuestToLobby(lobbyNumber, name)
+                      console.log("adding guest to lobby")
+                      navigateLobby("guest", lobbyNumber)
+                    }
+                  });
+                } catch (error){
+                  console.log('lobby not found')
+                }
+                
               }
-            //   if this is wrong - clear box and send an alert!!
+            //  if this is wrong - clear box and send an alert!!
+            //  if the text is empty, don't allow a submit
             }
+          onChangeText={
+            (textValue) => {
+              setLobbyNumber(textValue)
+              console.log(textValue)
+            }
+          }
         />
       </View>
     </>
