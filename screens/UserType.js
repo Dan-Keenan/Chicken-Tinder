@@ -11,12 +11,11 @@ import firebase from '../firebase'
 
 const UserType = ({ navigation }) => {
 
-    // const [roomText, setRoomText] = React.useState("")
     const [lobbyNumber, setLobbyNumber] = React.useState("")
 
     const { name } = navigation.state.params;
 
-    const dbRef = firebase.firestore().collection('lobbies')
+    const dbRef = firebase.firestore().collection('lobby')
 
     const navigateLobby = (userTypeInfo, lobbyNumber) => {
         navigation.navigate('Lobby', {
@@ -25,26 +24,27 @@ const UserType = ({ navigation }) => {
         })
     }
 
-    const startNewLobby = () => {
+    const generateRandom = () => {
       const random = Math.floor(Math.random() * 10000).toString()
-
-      // make a new doc 
-      dbRef.doc(random).set({
-
-      })
 
       return random
     }
 
-    const addHostToLobby = (lobbyNumber, name) => {
-      dbRef.doc(lobbyNumber).update({
-        host: name
+    const startLobby = (random) => {
+      dbRef.doc(random).set({
+
+      })
+
+      dbRef.doc(random).collection("person").add({
+        usertype: 'host',
+        name: name
       })
     }
 
     const addGuestToLobby = (lobbyNumber, name) => {
-      dbRef.doc(lobbyNumber).update({
-        guest: name
+      dbRef.doc(lobbyNumber).collection("person").add({
+        usertype: 'guest',
+        name: name
       })
     }
 
@@ -62,10 +62,8 @@ const UserType = ({ navigation }) => {
             () => {
                 console.log("navigating to lobby as host")
                 // generate random number, stored in backend
-                const lobbyNumber = startNewLobby()
-                setLobbyNumber(lobbyNumber)
-
-                addHostToLobby(lobbyNumber, name)
+                const lobbyNumber = generateRandom()
+                startLobby(lobbyNumber)
                 // place user in lobby
                 navigateLobby("host", lobbyNumber)
             }
@@ -83,7 +81,7 @@ const UserType = ({ navigation }) => {
 
                 console.log("LOBBY NUMBER", lobbyNumber)
                 try {
-                  dbRef.doc(lobbyNumber).get()
+                  dbRef.doc(  lobbyNumber).get()
                   .then((docSnapshot) => {
                     if (docSnapshot.exists) {
                       addGuestToLobby(lobbyNumber, name)

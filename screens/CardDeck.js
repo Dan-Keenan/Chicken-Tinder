@@ -9,11 +9,11 @@ import firebase from '../firebase'
 
 // ASSUME HOST - START LEDGER 
 
-firebase.firestore().collection('lobbies').doc('1545').set({
-    timeStart: "firebase.firestore.FieldValue.serverTimestamp()"
-})
+// firebase.firestore().collection('lobby').doc('1545').set({
+//     timeStart: "firebase.firestore.FieldValue.serverTimestamp()"
+// })
 
-ledgerRef = firebase.firestore().collection('lobbies').doc('1545')
+// ledgerRef = firebase.firestore().collection('lobby').doc('1545')
 
 // dbRef = firebase.firestore().collection('cities')
 

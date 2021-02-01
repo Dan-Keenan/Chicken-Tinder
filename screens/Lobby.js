@@ -8,6 +8,7 @@ import {
   Text,
   FlatList
 } from "react-native";
+import LobbyUser from '../components/LobbyUser'
 import firebase from '../firebase'
 
 const Lobby = (props) => {
@@ -17,7 +18,9 @@ const Lobby = (props) => {
     const { userType } = props.navigation.state.params
     const { lobbyNumber } = props.navigation.state.params
 
-    const ledgerRef = firebase.firestore().collection('lobbies').doc(lobbyNumber)
+    const ledgerRef = firebase.firestore().collection('lobby').doc(lobbyNumber)
+    const personRef = firebase.firestore().collection('lobby').doc(lobbyNumber).collection('person')
+
     // state:
     // lobby number
     // all users in the lobby 
@@ -26,32 +29,24 @@ const Lobby = (props) => {
         props.navigation.navigate('ChickenTinderApp')
     }
 
+    personRef
+    .onSnapshot(function(querySnapshot) {
+        const personList = [];
+        
+        querySnapshot.forEach(function(doc) {
+            personList.push({
+              id: doc.id,
+              name: doc.data().name,
+              usertype: doc.data().usertype
+            });
+        });
+
+        setLobbyUsers(personList)
+        // console.log("Current people in lobby: ", cities.join(", "));
+    });
+
+    // console.log("lobbyUsers", lobbyUsers)
     
-
-    useEffect( () => {
-      // console.log(lobbyNumber, userType, '!!!')
-      // const dbListener = firebase.database().ref('lobbies/' + {lobbyNumber})
-      
-      // console.log('hi')
-      // if im the host:
-      
-      // - generate random number
-      // - create new lobby in database 
-      // - add name to lobby in database
-      // - pull from database with map
-      // below should be out of useEffect
-      // ... rerender when somebody else joins/leaves
-      
-      // if im the guest:
-
-      // - pull from database with random number
-      // - add name to list
-
-      // below should be out of useEffect
-      // ... rerender when somebody else joins/leaves
-    })
-
-    // show lobby with a .map over the server-side
     
   return (
     <>
@@ -64,6 +59,13 @@ const Lobby = (props) => {
                 navigateChickenTinderApp()
             }
         }
+        />
+      </View>
+      <View>
+        <FlatList
+        data = {lobbyUsers}
+        keyExtractor = {(person) => person.id}
+        renderItem ={ ({item}) => <LobbyUser name={item.name} usertype={item.usertype}/>}
         />
       </View>
     </>
